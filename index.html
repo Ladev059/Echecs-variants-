@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Échecs Variantes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="container">
+
+    <!-- PAGE ACCUEIL -->
+    <section id="page-welcome" class="page active">
+      <h1>Bienvenue aux Échecs Variants</h1>
+      <p>Découvrez les variantes : <strong>Crazyhouse</strong>, <strong>Dame Cachée</strong>, <strong>Random Chess</strong>.</p>
+      <h2>Règles</h2>
+      <ul class="rules-list">
+        <li><strong>Crazyhouse :</strong> Captures ajoutent à la réserve, que l’on peut déposer.</li>
+        <li><strong>Dame Cachée :</strong> Pion spécial qui révèle sa puissance en Dame.</li>
+        <li><strong>Random Chess :</strong> Coup aléatoire choisi automatiquement.</li>
+      </ul>
+      <button id="btn-to-selection">Commencer</button>
+    </section>
+
+    <!-- PAGE SÉLECTION VARIANTE -->
+    <section id="page-selection" class="page">
+      <h2>Choisissez une variante</h2>
+      <div id="variant-select">
+        <button data-variant="classic">Classique</button>
+        <button data-variant="crazyhouse">Crazyhouse</button>
+        <button data-variant="hiddenqueen">Dame Cachée</button>
+        <button data-variant="randomchess">Random Chess</button>
+      </div>
+      <button id="btn-back-welcome" class="secondary">Retour</button>
+    </section>
+
+    <!-- PAGE DE JEU -->
+    <section id="page-game" class="page" aria-label="Zone de jeu">
+      <div id="game-info">
+        <div id="turn-indicator">Tour des Blancs</div>
+        <div id="notification" role="alert" aria-live="assertive"></div>
+      </div>
+      <div id="hand-area" aria-label="Réserve des pièces"></div>
+      <div id="board" aria-label="Plateau d'échecs"></div>
+      <button id="restart" class="primary">Revenir au menu</button>
+    </section>
+  </div>
+
+  <!-- MODALE PROMOTION -->
+  <div id="promotion-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="promotion-title">
+    <div id="promotion-content">
+      <h2 id="promotion-title">Choisissez une promotion</h2>
+      <div id="promotion-options"></div>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB3mWtG7gERJ1Kq59pLILG7nOIx0S9Xyu8",
+      authDomain: "echecs-variants.firebaseapp.com",
+      databaseURL: "https://echecs-variants-default-rtdb.firebaseio.com",
+      projectId: "echecs-variants",
+      storageBucket: "echecs-variants.firebasestorage.app",
+      messagingSenderId: "892813024734",
+      appId: "1:892813024734:web:5d2029f12889009396d14f",
+      measurementId: "G-8C7S748ZFL"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="multiplayer.js"></script>
+  <script src="engine/chess.js"></script>
+  <script src="main.js"></script>
+  <script src="variants/crazyhouse.js"></script>
+  <script src="variants/hiddenqueen.js"></script>
+  <script src="variants/randomchess.js"></script>
+</body>
+</html>
