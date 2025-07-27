@@ -1,52 +1,33 @@
+// hiddenqueen.js
 window.hiddenqueen = {
-  init(chess) {
-    chess.hiddenQueen = {w: null, b: null};
-    chess.selectingHQ = 'w';
-    window.notify("Blancs : choisissez votre pion 'Dame Cachée'");
+  init(ch){
+    ch.hiddenQueen={w:null,b:null};
+    ch.selectingHQ="w";
+    window.notify("Blancs : choisissez Dame Cachée");
   },
-
-  onSquareClick(chess, [r,c]) {
-    if(!chess.selectingHQ) return false;
-
-    const piece = chess.board[r][c];
-    if(piece && piece[0] === chess.selectingHQ && piece[1] === 'P'){
-      chess.hiddenQueen[chess.selectingHQ] = [r,c];
-      window.notify(`${chess.selectingHQ === 'w' ? 'Blancs' : 'Noirs'} : Dame Cachée placée.`);
-      if(chess.selectingHQ === 'w'){
-        chess.selectingHQ = 'b';
-        chess.turn = 'b';
-        window.notify("Noirs : choisissez votre pion 'Dame Cachée'");
-      } else {
-        chess.selectingHQ = null;
-        chess.turn = 'w';
-        window.notify("Début de la partie !");
-      }
+  onSquareClick(ch,[r,c]){
+    if(!ch.selectingHQ)return false;
+    const p=ch.board[r][c];
+    if(p&&p[0]===ch.selectingHQ&&p[1]==='P'){
+      ch.hiddenQueen[ch.selectingHQ]=[r,c];
+      window.notify((ch.selectingHQ==="w"?"Blancs":"Noirs")+" : Dame placée");
+      if(ch.selectingHQ==="w"){ch.selectingHQ="b";ch.turn="b";window.notify("Noirs : choisissez");}
+      else{ch.selectingHQ=null;ch.turn="w";window.notify("Début");}
       return true;
     }
-    window.notify("Choisissez un de vos pions !");
+    window.notify("Choisissez un pion");
     return false;
   },
-
-  legalMoves(board, r, c, chess, state) {
-    if(chess.selectingHQ) return [];
-    return window.chessEngine.legalMoves(board, r, c, chess.prevMove, state);
+  legalMoves(b,r,c,ch,state){
+    return ch.selectingHQ?[]:window.chessEngine.legalMoves(b,r,c,ch.prevMove,state);
   },
-
-  onMove(chess, from, to) {
-    const piece = chess.board[from[0]][from[1]];
-    if(chess.hiddenQueen[chess.turn] &&
-       from[0] === chess.hiddenQueen[chess.turn][0] &&
-       from[1] === chess.hiddenQueen[chess.turn][1] &&
-       piece[1] === 'P') {
-
-      let dr = Math.abs(to[0] - from[0]);
-      let dc = Math.abs(to[1] - from[1]);
-      if(dr > 1 || dc > 1) {
-        chess.board[from[0]][from[1]] = chess.turn + 'Q';
-        window.notify("Dame cachée révélée !");
-      }
+  onMove(ch,from,to){
+    const p=ch.board[from[0]][from[1]];
+    const hq=ch.hiddenQueen[ch.turn];
+    if(hq&&from[0]===hq[0]&&from[1]===hq[1]&&p[1]==='P'){
+      const dr=Math.abs(to[0]-from[0]),dc=Math.abs(to[1]-from[1]);
+      if(dr>1||dc>1){ch.board[from[0]][from[1]]=ch.turn+'Q';window.notify("Révélée");}
     }
-
-    return window.doMove(from, to);
+    return window.doMove(from,to);
   }
 };
