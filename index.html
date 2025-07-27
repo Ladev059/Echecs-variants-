@@ -8,20 +8,18 @@
 </head>
 <body>
   <div id="container">
-
     <!-- PAGE ACCUEIL -->
     <section id="page-welcome" class="page active">
       <h1>Bienvenue aux Échecs Variants</h1>
-      <p>Découvrez les variantes : <strong>Crazyhouse</strong>, <strong>Dame Cachée</strong>, <strong>Random Chess</strong>.</p>
+      <p>Découvrez les variantes : <strong>Crazyhouse</strong>, <strong>Dame Cachée</strong>, <strong>Random Chess</strong>.</p>
       <h2>Règles</h2>
       <ul class="rules-list">
-        <li><strong>Crazyhouse :</strong> Captures ajoutent à la réserve, que l’on peut déposer.</li>
-        <li><strong>Dame Cachée :</strong> Pion spécial qui révèle sa puissance en Dame.</li>
-        <li><strong>Random Chess :</strong> Coup aléatoire choisi automatiquement.</li>
+        <li><strong>Crazyhouse</strong> : Captures ajoutent à la réserve, que l’on peut déposer.</li>
+        <li><strong>Dame Cachée</strong> : Pion spécial qui révèle sa puissance en Dame.</li>
+        <li><strong>Random Chess</strong> : Coup aléatoire choisi automatiquement.</li>
       </ul>
       <button id="btn-to-selection">Commencer</button>
     </section>
-
     <!-- PAGE SÉLECTION VARIANTE -->
     <section id="page-selection" class="page">
       <h2>Choisissez une variante</h2>
@@ -33,7 +31,6 @@
       </div>
       <button id="btn-back-welcome" class="secondary">Retour</button>
     </section>
-
     <!-- PAGE DE JEU -->
     <section id="page-game" class="page" aria-label="Zone de jeu">
       <div id="game-info">
@@ -71,10 +68,10 @@
     firebase.initializeApp(firebaseConfig);
   </script>
   <script src="multiplayer.js"></script>
-  <script src="engine/chess.js"></script>
+  <script src="chess.js"></script>
   <script src="main.js"></script>
-  <script src="variants/crazyhouse.js"></script>
-  <script src="variants/hiddenqueen.js"></script>
-  <script src="variants/randomchess.js"></script>
+  <script src="crazyhouse.js"></script>
+  <script src="hiddenqueen.js"></script>
+  <script src="randomchess.js"></script>
 </body>
 </html>
