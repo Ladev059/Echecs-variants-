@@ -1,7 +1,7 @@
 // chess.js – moteur de base avec roque, prise en passant, promotion, détection d'échec
 
 const PIECES = {
-  wK: '-king.png', wQ: 'white-queen.png', wR: 'white-rook.png',
+  wK: 'white-king.png', wQ: 'white-queen.png', wR: 'white-rook.png',
   wB: 'white-bishop.png', wN: 'white-knight.png', wP: 'white-pawn.png',
   bK: 'black-king.png', bQ: 'black-queen.png', bR: 'black-rook.png',
   bB: 'black-bishop.png', bN: 'black-knight.png', bP: 'black-pawn.png'
