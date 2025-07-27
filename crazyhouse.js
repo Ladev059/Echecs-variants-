@@ -1,46 +1,31 @@
+// crazyhouse.js
 window.crazyhouse = {
-  init(chess) {
-    chess.hands = {w: [], b: []};
-    chess.capturing = false;
+  init(ch){
+    ch.hands={w:[],b:[]};
+    ch.capturing=false;
   },
-
-  renderHand(chess, elHand) {
-    elHand.innerHTML = '';
-    const color = chess.turn;
-    if(chess.hands[color].length === 0) return;
-
-    const label = document.createElement('span');
-    label.textContent = 'Réserve : ';
-    label.style.marginRight = '8px';
-    elHand.appendChild(label);
-
-    chess.hands[color].forEach(type => {
-      const img = document.createElement('img');
-      img.src = window.chessEngine.PIECES[color + type];
-      img.className = 'hand-piece';
-      img.alt = (color === 'w' ? 'Blanc ' : 'Noir ') + ({
-        K:'Roi', Q:'Dame', R:'Tour', B:'Fou', N:'Cavalier', P:'Pion'
-      })[type] || 'Pièce';
-      img.onclick = () => {
-        chess.capturing = chess.capturing === type ? false : type;
-        this.renderHand(chess, elHand);
+  renderHand(ch,el){
+    el.innerHTML="";
+    if(!ch.hands[ch.turn].length)return;
+    el.textContent="Réserve : ";
+    ch.hands[ch.turn].forEach(tp=>{
+      const img=document.createElement("img");
+      img.src=window.chessEngine.PIECES[ch.turn+tp];
+      img.className="hand-piece";
+      img.alt=tp;img.onclick=()=>{
+        ch.capturing=ch.capturing===tp?false:tp;
+        this.renderHand(ch,el);
       };
-      if(chess.capturing === type) img.classList.add('selected');
-      elHand.appendChild(img);
+      if(ch.capturing===tp)img.classList.add("selected");
+      el.appendChild(img);
     });
   },
-
-  onMove(chess, from, to) {
-    const captured = chess.board[to[0]][to[1]];
-    if(captured && captured[0] !== chess.turn) {
-      chess.hands[chess.turn].push(captured[1]);
-    }
-
-    return window.doMove(from, to);
+  onMove(ch,from,to){
+    const cap=ch.board[to[0]][to[1]];
+    if(cap&&cap[0]!==ch.turn)ch.hands[ch.turn].push(cap[1]);
+    return window.doMove(from,to);
   },
-
-  legalMoves(board, r, c, chess, state) {
-    if(chess.capturing) return [];
-    return window.chessEngine.legalMoves(board, r, c, chess.prevMove, state);
+  legalMoves(b,r,c,ch,state){
+    return ch.capturing?[]:window.chessEngine.legalMoves(b,r,c,ch.prevMove,state);
   }
 };
